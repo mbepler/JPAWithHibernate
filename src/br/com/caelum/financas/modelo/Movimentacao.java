@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +20,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.ManyToAny;
 
 @Entity
+//Esta maneira de realizar query traz o beneficio que ao subir a aplicação, se a query houver problema de sintaxe o sistema ira motrar o erro antes de subir o sistema
+@NamedQuery(query = "select AVG(m.valor) from Movimentacao m where m.conta = :pConta"
+		+ " and m.tipo = :pTipo"
+		+ " group by m.conta ", name="MediasPorDiaETipo")
 public class Movimentacao {
 
 	@Id
